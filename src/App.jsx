@@ -22,19 +22,6 @@ export default function App() {
 
   return (
     <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap');
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #0a0a10; font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; }
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-thumb { background: #2a2a3e; border-radius: 4px; }
-        select option { background: #111118; color: #e2e8f0; }
-        @keyframes cardIn  { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
-        @keyframes modalIn { from { opacity:0; transform:translateY(12px) scale(0.97); } to { opacity:1; transform:none; } }
-        @keyframes popIn   { from { opacity:0; transform:scale(0.8); } to { opacity:1; transform:scale(1); } }
-        @keyframes shimmer { 0%,100% { opacity:0.6; } 50% { opacity:1; } }
-      `}</style>
-
       <Confetti active={confetti} />
       <MotivationPopup data={motivation} />
 
