@@ -13,6 +13,7 @@ export default function useTasks() {
 
   const [filterType,   setFilterType]   = useState("all");
   const [filterStatus, setFilterStatus] = useState("all");
+  const [searchQuery,  setSearchQuery]  = useState("");
   const [showModal,    setShowModal]    = useState(false);
   const [editId,       setEditId]       = useState(null);
   const [confetti,     setConfetti]     = useState(false);
@@ -92,10 +93,15 @@ export default function useTasks() {
   const deleteTask = (id) => setTasks((p) => p.filter((t) => t.id !== id));
 
   /* ── Derived stats ── */
-  const filtered = tasks.filter((t) =>
-    (filterType   === "all" || t.type   === filterType) &&
-    (filterStatus === "all" || t.status === filterStatus)
-  );
+  const filtered = tasks.filter((t) => {
+    const matchType   = filterType   === "all" || t.type   === filterType;
+    const matchStatus = filterStatus === "all" || t.status === filterStatus;
+    const q           = searchQuery.toLowerCase().trim();
+    const matchSearch = !q ||
+      t.title.toLowerCase().includes(q) ||
+      (t.desc || "").toLowerCase().includes(q);
+    return matchType && matchStatus && matchSearch;
+  });
 
   const total      = tasks.length;
   const done       = tasks.filter((t) => t.status === "done").length;
@@ -107,8 +113,9 @@ export default function useTasks() {
     filtered, total, done, inprogress, pending,
     confetti, motivation,
     showModal, form, setForm, editId,
-    filterType, setFilterType,
+    filterType,  setFilterType,
     filterStatus, setFilterStatus,
+    searchQuery, setSearchQuery,
     /* actions */
     openAdd, openEdit, closeModal,
     saveTask, updateStatus, deleteTask,
